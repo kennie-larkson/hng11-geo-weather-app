@@ -11,7 +11,7 @@ const key = process.env.WEATHER_API;
 app.set("trust proxy", true);
 
 router.get("/hello", async (req: Request, res: Response) => {
-  const visitor = (req.query.visitor as string) || undefined;
+  const visitor = (req.query.visitor_name as string) || undefined;
   const clientIp = req.ip;
   //const location = await getGeolocation("102.89.23.63", key);
   const location = await getGeolocation(clientIp, key);
