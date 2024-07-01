@@ -23,7 +23,7 @@ dotenv_1.default.config();
 const key = process.env.WEATHER_API;
 app.set("trust proxy", true);
 router.get("/hello", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const visitor = req.query.visitor || undefined;
+    const visitor = req.query.visitor_name || undefined;
     const clientIp = req.ip;
     //const location = await getGeolocation("102.89.23.63", key);
     const location = yield (0, ip_geolocation_1.getGeolocation)(clientIp, key);
