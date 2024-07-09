@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const ip_geolocation_1 = require("../utils/ip_geolocation");
 const weather_1 = require("../utils/weather");
-const index_1 = require("../index");
+const index_1 = __importDefault(require("../index"));
 jest.mock("../utils/ip_geolocation");
 jest.mock("../utils/weather");
 describe("GET /hello", () => {
@@ -26,7 +26,7 @@ describe("GET /hello", () => {
         const mockIp = "::1";
         ip_geolocation_1.getGeolocation.mockResolvedValue(mockLocation);
         weather_1.currentWeather.mockResolvedValue(mockTemperature);
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .get("/api/hello")
             .query({ visitor_name: mockVisitorName });
         expect(response.status).toBe(200);
@@ -41,7 +41,7 @@ describe("GET /hello", () => {
         const mockTemperature = "25";
         ip_geolocation_1.getGeolocation.mockResolvedValue(mockLocation);
         weather_1.currentWeather.mockResolvedValue(mockTemperature);
-        const response = yield (0, supertest_1.default)(index_1.app).get("/hello");
+        const response = yield (0, supertest_1.default)(index_1.default).get("/hello");
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
             client_ip: expect.any(String),
@@ -52,7 +52,7 @@ describe("GET /hello", () => {
     it("should handle errors gracefully and return default greeting", () => __awaiter(void 0, void 0, void 0, function* () {
         ip_geolocation_1.getGeolocation.mockRejectedValue(new Error("Geolocation error"));
         weather_1.currentWeather.mockResolvedValue("25");
-        const response = yield (0, supertest_1.default)(index_1.app).get("/hello");
+        const response = yield (0, supertest_1.default)(index_1.default).get("/hello");
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
             client_ip: expect.any(String),

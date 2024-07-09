@@ -1,7 +1,7 @@
 import request from "supertest";
 import { getGeolocation } from "../utils/ip_geolocation";
 import { currentWeather } from "../utils/weather";
-import { app } from "../index";
+import app from "../index";
 
 jest.mock("../utils/ip_geolocation");
 jest.mock("../utils/weather");
